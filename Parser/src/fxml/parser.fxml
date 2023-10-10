@@ -11,9 +11,9 @@
 <VBox  prefWidth="398.0" fx:id="mainPanel" fx:controller="code.Controller" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
    
-      <AnchorPane id="titlePanel" fx:id="titlePanel"   style="-fx-background-color: c2a2c2;-fx-padding: 0 0 5 0;">
+      <AnchorPane id="titlePanel" fx:id="titlePanel" style="-fx-background-color: c2a2c2;-fx-padding: 0 0 5 0;">
          <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" layoutY="5.0" prefWidth="398.0" text="Parser">
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutY="5.0" prefWidth="398.0" fx:id="title">
                <font>
                   <Font size="20.0" />
                </font>
@@ -40,7 +40,7 @@
       
       <AnchorPane id="submitPanel" fx:id="submitPanel"  style="-fx-background-color: aaaaaa;-fx-padding: 0 0 15 0;">
          <children>
-            <Button id="buttonNext" fx:id="buttonNext" contentDisplay="CENTER" layoutX="176.0" layoutY="15.0" mnemonicParsing="false" text="Next">
+            <Button id="buttonNext" fx:id="buttonNext" onAction="#buttonNextClick" contentDisplay="CENTER" layoutX="176.0" layoutY="15.0" mnemonicParsing="false" text="Next">
                <font>
                   <Font size="14.0" />
                </font>

@@ -21,13 +21,10 @@ public class Controller {
 	@FXML private VBox mainPanel;
 	
 	@FXML private AnchorPane titlePanel;
+	@FXML private Label title;
+    
     @FXML private AnchorPane tablePanel;
-    @FXML private AnchorPane linePanel;
-    @FXML private AnchorPane submitPanel;
-    
-    
     @FXML private Label tableName;
-    
     @FXML private Label champ1;
     @FXML private Label champ2;
     @FXML private Label champ3;
@@ -37,76 +34,80 @@ public class Controller {
     @FXML private ChoiceBox<String> champ3choice;
     @FXML private ChoiceBox<String> champ4choice;
     
+    @FXML private AnchorPane linePanel;
     @FXML private TextField lineChoice;
+    
+    @FXML private AnchorPane submitPanel;
     @FXML private Button buttonNext;
     
     private int currentTable;
-    
-    Parser parser = new Parser();
+
+	Parser parser = new Parser();
 
     
 	@FXML
 	public void initialize() {
 		
-		setCurrentTable(0);
-		
 		System.out.println("Initialize method called");
 		
+		//index of the first table
+		setCurrentTable(0);
+
+		//size of the table
+		int tableSize = parser.tableArray.get(getCurrentTable()).size();
+		
+		//set title as Parser + which table it's showing out of all tables in the array
+		title.setText("Parser " + (getCurrentTable()+1) + "/" + parser.tableArray.size());
+		
+		// set title of the actual table
 		tableName.setText(parser.tableArray.get(getCurrentTable()).get(0));
 		
-		int tableSize = parser.tableArray.get(getCurrentTable()).size();
-
-		List<ChoiceBox<String>> champChoiceBoxes = new ArrayList<ChoiceBox<String>>();
+		//create list of labels and boxes
 		List<Label> champLabels = new ArrayList<Label>();
+		List<ChoiceBox<String>> champChoiceBoxes = new ArrayList<ChoiceBox<String>>();
 		
-		    
+		
+		//populate the lists of labels and boxes
 		for (int i = 0; i < tableSize; i++) {
-	    	 // Create and add a ChoiceBox to the list
-	    	champChoiceBoxes.add(new ChoiceBox<String>());
-	    	champLabels.add(new Label());
-	        
-
-	        champChoiceBoxes.get(i).setId("champ" + (i + 1) + "choice");
-	        champChoiceBoxes.get(i).getItems().addAll("Please pick", "Primary Key", "Foreign Key", "First Name", "Last Name", "City", "Street");
-	        champChoiceBoxes.get(i).setLayoutX(210.0);
-	        champChoiceBoxes.get(i).setLayoutY(13.0 + i * 40.0); 
-	        champChoiceBoxes.get(i).setPrefWidth(150.0);
-	        
-	     // Set the selected item
-			champChoiceBoxes.get(i).setValue("Please pick"); // This will preselect "Option 2"
-
-	        
+			
+			champLabels.add(new Label());
+			
 	        champLabels.get(i).setId("champ" + (i + 1));
-
+	        champLabels.get(i).setText(parser.tableArray.get(getCurrentTable()).get(i)); 
 	        champLabels.get(i).setLayoutX(40.0);
 	        champLabels.get(i).setLayoutY(15.0 + i * 40.0); 
 	        champLabels.get(i).setPrefHeight(20.0);
 	        champLabels.get(i).setPrefWidth(150.0);
 	        champLabels.get(i).setStyle("-fx-background-color: f2f2f2;");
-	        champLabels.get(i).setText(parser.tableArray.get(getCurrentTable()).get(i)); 
+			
+	        
+	    	champChoiceBoxes.add(new ChoiceBox<String>());
+
+	        champChoiceBoxes.get(i).setId("champ" + (i + 1) + "choice");
+	        champChoiceBoxes.get(i).getItems().addAll("Please pick", "Primary Key", "Foreign Key", "First Name", "Last Name", "City", "Street");
+	        champChoiceBoxes.get(i).setValue("Please pick");
+	        champChoiceBoxes.get(i).setLayoutX(210.0);
+	        champChoiceBoxes.get(i).setLayoutY(13.0 + i * 40.0); 
+	        champChoiceBoxes.get(i).setPrefWidth(150.0);
 
 	    }
-		
 		
 		
 		for (int i = 1; i < tableSize; i++) {
 			tablePanel.getChildren().addAll(champChoiceBoxes.get(i), champLabels.get(i));
 		}
-	 // Set the prefHeight of the AnchorPane to adjust its height
-	  //  tablePanel.setPrefHeight(totalHeight);
+		
+		//Make the height of the program be the same of the total height of all children
 		Platform.runLater(() -> {
-
-	    double fullHeight = titlePanel.getHeight() + tablePanel.getHeight() + linePanel.getHeight() + submitPanel.getHeight() + 23 + 15;
-	    primaryStage.setHeight(fullHeight);
-	    //System.out.println(fullHeight);
+		    double fullHeight = titlePanel.getHeight() + tablePanel.getHeight() + linePanel.getHeight() + submitPanel.getHeight() + 23 + 15;
+		    primaryStage.setHeight(fullHeight);
 		});
 		
 	}
-	
+		
 	public void setPrimaryStage(Stage primaryStage) {
         this.primaryStage = primaryStage;
     }
-
 
 	public int getCurrentTable() {
 		return currentTable;
@@ -115,5 +116,13 @@ public class Controller {
 	public void setCurrentTable(int currentTable) {
 		this.currentTable = currentTable;
 	}
+	
+	@FXML
+    public void buttonNextClick() {
+        buttonNext.setText("Clicked");
+        
+        
+    }
+
 
 }
