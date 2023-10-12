@@ -1,7 +1,9 @@
 package code;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
+import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.geometry.Rectangle2D;
@@ -13,6 +15,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class Controller {
 	
@@ -25,14 +28,6 @@ public class Controller {
     
     @FXML private AnchorPane tablePanel;
     @FXML private Label tableName;
-    @FXML private Label champ1;
-    @FXML private Label champ2;
-    @FXML private Label champ3;
-    @FXML private Label champ4;
-    @FXML private ChoiceBox<String> champ1choice;
-    @FXML private ChoiceBox<String> champ2choice;
-    @FXML private ChoiceBox<String> champ3choice;
-    @FXML private ChoiceBox<String> champ4choice;
     
     @FXML private AnchorPane linePanel;
     @FXML private TextField lineChoice;
@@ -41,6 +36,12 @@ public class Controller {
     @FXML private Button buttonNext;
     
     private int currentTable;
+    
+    private List<List<List<String>>> fullArray = new ArrayList<>();
+    
+   
+    private List<ChoiceBox<String>> champChoiceBoxes= new ArrayList<>();
+    
 
 	Parser parser = new Parser();
 
@@ -52,6 +53,7 @@ public class Controller {
 		
 		//index of the first table
 		setCurrentTable(0);
+		
 
 		//size of the table
 		int tableSize = parser.tableArray.get(getCurrentTable()).size();
@@ -64,9 +66,7 @@ public class Controller {
 		
 		//create list of labels and boxes
 		List<Label> champLabels = new ArrayList<Label>();
-		List<ChoiceBox<String>> champChoiceBoxes = new ArrayList<ChoiceBox<String>>();
-		
-		
+
 		//populate the lists of labels and boxes
 		for (int i = 0; i < tableSize; i++) {
 			
@@ -120,7 +120,64 @@ public class Controller {
 	@FXML
     public void buttonNextClick() {
         buttonNext.setText("Clicked");
+        System.out.println("button clicked");
         
+        int lineNumbers;
+        try {
+            lineNumbers = Integer.parseInt(lineChoice.getText());
+            System.out.println("lineNumbers : " + lineNumbers);
+        } catch (NumberFormatException e) {
+            // Parsing failed, handle the error here
+            System.err.println(e.getMessage());
+            // You can provide a default value or show an error message to the user
+            lineNumbers = 0; // Default value, you can change this as needed
+            Platform.exit();
+        }
+        
+        
+        fullArray.add(new ArrayList<>());
+        
+        for (int i = 0; i < lineNumbers; i++) {
+
+	        fullArray.get(getCurrentTable()).add(new ArrayList<>());
+        
+	        for (int j = 1; j < champChoiceBoxes.size(); j++) {
+	        	
+	        	String selectedValue = champChoiceBoxes.get(j).getValue();
+	        	
+	        	switch (selectedValue) {
+	            case "Primary Key" -> {
+	            	fullArray.get(getCurrentTable()).get(i).add(Integer.toString(i+1)); 
+	            	
+	            }
+	            case "Foreign Key" -> {
+	            	fullArray.get(getCurrentTable()).get(i).add(selectedValue);
+	                
+	            }
+	            case "First Name" -> {
+	            	fullArray.get(getCurrentTable()).get(i).add(selectedValue);
+	                
+	            }
+	            case "Last Name" -> {
+	            	fullArray.get(getCurrentTable()).get(i).add(selectedValue);
+	                
+	            }
+	            case "City" -> {
+	            	fullArray.get(getCurrentTable()).get(i).add(selectedValue);
+	                
+	            }
+	            default -> {
+	            	fullArray.get(getCurrentTable()).get(i).add("didNotSelectAnythingImBlind");
+	            }
+	            	  
+	        	};
+	        	
+	            //fullArray.get(getCurrentTable()).get(i).add(selectedValue);
+	        }
+	     
+        }
+        
+        System.out.println(fullArray);
         
     }
 
