@@ -181,10 +181,11 @@ public class Controller {
 	        for (int i = 0; i < lineNumbers; i++) {
 	
 		        fullArray.get(getCurrentTable()).add(new ArrayList<>());
+		        fullArray.get(getCurrentTable()).get(i).add(getTableName());
 	        
 		        for (int j = 1; j < champChoiceBoxes.size(); j++) {
 		        	
-		        	fullArray.get(getCurrentTable()).get(i).add(getTableName());
+		        	
 		        	
 		        	String selectedValue = champChoiceBoxes.get(j).getValue();
 		        	
