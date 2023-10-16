@@ -41,10 +41,10 @@ public class Main  extends Application {
 
 	public static void main(String[] args) {
 
-		Parser parser = new Parser();
+		//Parser parser = new Parser();
 
 		//System.out.println(parser.tableArray.get(0).get(0));
-		System.out.println(parser.tableArray);
+		//System.out.println(parser.tableArray);
 		
 		launch(args);
 

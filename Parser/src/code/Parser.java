@@ -7,8 +7,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Parser {
-
+	
 	List<LinkedList<String>> tableArray = new ArrayList<>();
+
 
 	public Parser() {
 
