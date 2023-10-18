@@ -15,7 +15,7 @@ public class Parser {
 
 
 		// location du fichier sql où on doit mettre
-		String filePath = "src/input/test.sql";
+		String filePath = "src/input/input.sql";
 
 
 	    try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {

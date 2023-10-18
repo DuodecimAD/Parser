@@ -176,6 +176,8 @@ public class Controller {
 	
 	@FXML
 	public void initialize() {
+		
+		System.out.println("tableArray :" +parser.tableArray.size());
 		/*
 		mainPanel.prefHeightProperty().bind(
 			    Bindings.createDoubleBinding(() -> {

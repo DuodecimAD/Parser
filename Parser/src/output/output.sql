@@ -1,0 +1,6 @@
+INSERT INTO City (city_id, city_name, city_lat, city_long) VALUES ('iDidNotSelectAnythingImBlind', 'iDidNotSelectAnythingImBlind', 'iDidNotSelectAnythingImBlind', 'iDidNotSelectAnythingImBlind');
+INSERT INTO City (city_id, city_name, city_lat, city_long) VALUES ('iDidNotSelectAnythingImBlind', 'iDidNotSelectAnythingImBlind', 'iDidNotSelectAnythingImBlind', 'iDidNotSelectAnythingImBlind');
+INSERT INTO Driver (driver_id, driver_firstName, driver_lastName, driver_age, driver_address) VALUES ('iDidNotSelectAnythingImBlind', 'iDidNotSelectAnythingImBlind', 'iDidNotSelectAnythingImBlind', 'iDidNotSelectAnythingImBlind', 'iDidNotSelectAnythingImBlind');
+INSERT INTO Driver (driver_id, driver_firstName, driver_lastName, driver_age, driver_address) VALUES ('iDidNotSelectAnythingImBlind', 'iDidNotSelectAnythingImBlind', 'iDidNotSelectAnythingImBlind', 'iDidNotSelectAnythingImBlind', 'iDidNotSelectAnythingImBlind');
+INSERT INTO Client (client_id, client_firstName, client_lastName) VALUES ('iDidNotSelectAnythingImBlind', 'iDidNotSelectAnythingImBlind', 'iDidNotSelectAnythingImBlind');
+INSERT INTO Client (client_id, client_firstName, client_lastName) VALUES ('iDidNotSelectAnythingImBlind', 'iDidNotSelectAnythingImBlind', 'iDidNotSelectAnythingImBlind');
