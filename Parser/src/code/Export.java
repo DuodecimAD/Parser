@@ -24,7 +24,7 @@ public class Export {
 		
 		System.out.println("/////////////////////////////////////////");
 		
-		
+		/*
 			
 			for (int t = 0; t < controller.getFullArray().size(); t++) {
 				for (int i = 0; i < controller.getFullArray().get(t).size(); i++) {
@@ -65,7 +65,8 @@ public class Export {
 						
 				}
 			}
-			
+			*/
+		
 			// Define the file path where you want to save the SQL statements
 			String filePath = "src/output/output.sql";
 			

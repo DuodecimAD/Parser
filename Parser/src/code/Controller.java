@@ -143,11 +143,11 @@ public class Controller {
 		    "Paralegal", "Urban Planner", "Insurance Agent", "Educator", "Veterinarian", "Editor", "Artist", "Loan Officer", "Human Resources Assistant", "Diagnostic Medical Sonographer",
 		    "Librarian", "Chemist", "Clinical Laboratory Technician", "Janitor", "Computer Programmer", "Physician", "Executive Assistant", "Architect", "Desktop publisher", "Physicist",
 		    "Microbiologist", "Referee", "Judge", "Systems Analyst", "Accountant", "Police Officer", "Software Developer", "Occupational Therapist", "HR Specialist", "Drafter",
-		    "Housekeeper", "Substance Abuse Counselor", "Maintenance & Repair Worker", "Marriage & Family Therapist", "Social Worker", "School Counselor", "Carpenter", "Teacher Assistant",
+		    "Housekeeper", "Substance Abuse Counselor", "Repair Worker", "Family Therapist", "Social Worker", "School Counselor", "Carpenter", "Teacher Assistant",
 		    "Fitness Trainer", "Radiologic Technologist", "IT Manager", "Dental Hygienist", "Epidemiologist", "Art Director", "Database administrator", "Bus Driver", "Lawyer",
-		    "Event Planner", "Writer", "Computer Systems Analyst", "Web Developer", "Historian", "Statistician", "Psychologist", "Medical Assistant", "Interpreter & Translator",
+		    "Event Planner", "Writer", "Computer Systems Analyst", "Web Developer", "Historian", "Statistician", "Psychologist", "Medical Assistant", "Translator",
 		    "Public Relations Specialist", "Hairdresser", "Bookkeeping clerk", "Childcare worker", "Painter", "Surveyor", "Truck Driver", "Actuary", "Speech-Language Pathologist",
-		    "Chef", "Secretary", "Mathematician", "Professional athlete", "Reporter", "School Psychologist", "Security Guard", "Medical Secretary", "Farmer", "Landscaper & Groundskeeper",
+		    "Chef", "Secretary", "Mathematician", "Professional athlete", "Reporter", "School Psychologist", "Security Guard", "Medical Secretary", "Farmer", "Landscaper",
 		    "Actor", "Preschool Teacher", "Civil Engineer", "Middle School Teacher", "Musician", "Customer Service Representative", "Patrol Officer", "Automotive mechanic", "Sports Coach",
 		    "Cost Estimator", "Logistician", "Court Reporter", "Electrical Engineer", "Computer Support Specialist", "Mechanical Engineer"
 		);
@@ -177,15 +177,6 @@ public class Controller {
 	@FXML
 	public void initialize() {
 		
-		System.out.println("tableArray :" +parser.tableArray.size());
-		/*
-		mainPanel.prefHeightProperty().bind(
-			    Bindings.createDoubleBinding(() -> {
-			        double fullHeight = titlePanel.getHeight() + tablePanel.getHeight() + linePanel.getHeight() + submitPanel.getHeight() + 23 + 15;
-			        return fullHeight;
-			    }, titlePanel.heightProperty(), tablePanel.heightProperty(), linePanel.heightProperty(), submitPanel.heightProperty())
-			);
-		*/
 		System.out.println("Initialize method called");
 		
 		//index of the first table
@@ -254,28 +245,24 @@ public class Controller {
 	
 	@FXML
     public void buttonNextClick() {
-		
-		
-		
-		
+
         buttonNext.setText("Clicked");
         System.out.println("button clicked");
         
         int lineNumbers;
         try {
             lineNumbers = Integer.parseInt(lineChoice.getText());
-            System.out.println("lineNumbers : " + lineNumbers);
+           //System.out.println("lineNumbers : " + lineNumbers);
         } catch (NumberFormatException e) {
             // Parsing failed, handle the error here
-            System.err.println(e.getMessage());
+            System.err.println("you didn't put any number of lines");
             // You can provide a default value or show an error message to the user
             lineNumbers = 0; // Default value, you can change this as needed
-            Platform.exit();
+            //Platform.exit();
         }
         
         
         fullArray.add(new ArrayList<>());
-        
         
         
         for (int i = 0; i < lineNumbers; i++) {
@@ -336,12 +323,13 @@ public class Controller {
         }
         
         
-        System.out.println(fullArray); 
+        //System.out.println(fullArray); 
         
         if(getCurrentTable() == parser.tableArray.size()-1) {
 			System.out.println("exporting...");
 			
 			export.toSQL();
+			
 			System.out.println("CLOSE");
 			Platform.exit();
 			continueRunning = false;
