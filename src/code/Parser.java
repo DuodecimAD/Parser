@@ -1,27 +1,57 @@
 package code;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import javafx.stage.FileChooser.ExtensionFilter;
+
 public class Parser {
 	
+	private Stage primaryStage;
+	
 	List<LinkedList<String>> tableArray = new ArrayList<>();
-
+	String filePath = null;
 
 	public Parser() {
-
-
+			
+		
+		filePath = selectInput(filePath);
+		parseSQLFile();
 		// location du fichier sql où on doit mettre
-		String filePath = "src/input/input.sql";
+		//String filePath = "src/input/input.sql";
+ 
+	}
+	
+	public String selectInput(String filePath) {
+		
+		FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().add(new ExtensionFilter("select your .sql", "*.sql"));
+        
+     // Set the initial directory to the program's current working directory
+        fileChooser.setInitialDirectory(new File(System.getProperty("user.dir")+"/src/input/"));
 
+        File selectedFile = fileChooser.showOpenDialog(primaryStage);
 
-	    try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+        
+        if (selectedFile != null) {
+            filePath = selectedFile.getAbsolutePath();
+            // Do something with the file path, for example, display it
+            System.out.println("Selected File: " + filePath);
+        }
+		
+		return filePath;
+	}
+	
+	 public void parseSQLFile() {
+		 try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
 
 	    	// array où  seront stockés les tables et leurs elements issus du sql
-
 	        LinkedList<String> currentTableInfo = null;
 	        String line;
 	        boolean isInsideTableDefinition = false;
@@ -50,22 +80,11 @@ public class Parser {
 	                isInsideTableDefinition = true;
 	            }
 	        }
-
-	        /*
-	        //print array complet
-	        System.out.println(tableArray);
-
-	        //print table par table
-	        System.out.println(tableArray.get(0));
-
-	        //print premier nom de table, la suite sont ses element (city et city_id etc)
-	        System.out.println(tableArray.get(0).get(0));
-
-	        */
+	        reader.close();
 
 	    } catch (IOException e) {
 	        e.printStackTrace();
 	    }
-	}
+	 }
 
 }
