@@ -1,5 +1,8 @@
 package code;
 
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -39,7 +42,10 @@ public class Controller {
 	List<Label> champLabels = new ArrayList<Label>();
     private List<ChoiceBox<String>> champChoiceBoxes= new ArrayList<>();
     
-	
+    ArrayList<Integer> numbers = new ArrayList<>();
+    
+    static Random random = new Random();
+    
 	private volatile boolean continueRunning = true;
 	
 	List<String> firstNames = List.of(
@@ -217,7 +223,9 @@ public class Controller {
 	        champChoiceBoxes.get(i).getItems().addAll("Please pick", "Primary Key", "Foreign Key",
 	        											"First Names", "Last Names", "City Names", 
 	        											"Country Names", "Street Names", "Jobs",
-	        											 "Animal Names", "Dates");
+	        											 "Animal Names", "Numbers between 1-10",
+	        											 "Numbers between 1-100", "Numbers between 1-1000",
+	        											 "Numbers between 1-10000", "Dates");
 	        champChoiceBoxes.get(i).setValue("Please pick");
 	        champChoiceBoxes.get(i).setLayoutX(210.0);
 	        champChoiceBoxes.get(i).setLayoutY(13.0 + i * 40.0); 
@@ -263,20 +271,18 @@ public class Controller {
         
         
         fullArray.add(new ArrayList<>());
+
+        
+        for (int a = 1; a <= lineNumbers; a++) {
+            numbers.add(a);
+        }
         
         
         for (int i = 0; i < lineNumbers; i++) {
 
-	        fullArray.get(getCurrentTable()).add(new ArrayList<>());
-	        //fullArray.get(getCurrentTable()).get(i).add(getTableName());
-        
-	        /*for (int k = 0; k < getCurrentTableSize(); k++) {
-		        fullArray.get(0).get(k).add(parser.tableArray.get(getCurrentTable()).get(k));
-		    }*/
+	        fullArray.get(getCurrentTable()).add(new ArrayList<>());      
 	        
 	        for (int j = 1; j < champChoiceBoxes.size(); j++) {
-	        	
-	        	
 	        	
 	        	String selectedValue = champChoiceBoxes.get(j).getValue();
 	        	
@@ -286,7 +292,15 @@ public class Controller {
 		            }
 		            case "Foreign Key" -> {
 		            	
-		            	fullArray.get(getCurrentTable()).get(i).add(selectedValue);
+		            	
+		            	
+						int randomIndex = random.nextInt(numbers.size());
+						int randomNumber = numbers.get(randomIndex);
+						
+						fullArray.get(getCurrentTable()).get(i).add(Integer.toString(randomNumber));
+
+						numbers.remove(randomIndex);
+		                 
 		            }
 		            case "First Names" -> {
 		            	fullArray.get(getCurrentTable()).get(i).add(getRandomElement(firstNames));
@@ -309,9 +323,32 @@ public class Controller {
 		            case "Jobs" -> {
 		            	fullArray.get(getCurrentTable()).get(i).add(getRandomElement(jobs));
 		            }
+		            case "Numbers between 1-10" -> {
+		            	fullArray.get(getCurrentTable()).get(i).add(Integer.toString(random.nextInt(10) + 1));
+		            }
+		            case "Numbers between 1-100" -> {
+		            	fullArray.get(getCurrentTable()).get(i).add(Integer.toString(random.nextInt(100) + 1));
+		            }
+		            case "Numbers between 1-1000" -> {
+		            	fullArray.get(getCurrentTable()).get(i).add(Integer.toString(random.nextInt(1000) + 1));
+		            }
+		            case "Numbers between 1-10000" -> {
+		            	fullArray.get(getCurrentTable()).get(i).add(Integer.toString(random.nextInt(10000) + 1));
+		            }
+		            
 		            case "Dates" -> {
-		            	//String dates = ;
-		            	//fullArray.get(getCurrentTable()).get(i).add(dates);
+		            	 // Generate a random date within a specific range (adjust the range as needed)
+		                long minDate = Timestamp.valueOf("2000-01-01 00:00:00").getTime();
+		                long maxDate = Timestamp.valueOf("2023-12-31 23:59:59").getTime();
+		                long randomTime = minDate + (long) (Math.random() * (maxDate - minDate));
+
+		                Date randomDate = new Date(randomTime);
+		                
+		                // Convert the SQL date to a formatted string, adjust the format as needed
+		                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		                String formattedDate = dateFormat.format(randomDate);
+		                
+		                fullArray.get(getCurrentTable()).get(i).add("'" + formattedDate + "'");
 		            }
 		            default -> {
 		            	fullArray.get(getCurrentTable()).get(i).add("iDidNotSelectAnythingImBlind");
@@ -323,7 +360,7 @@ public class Controller {
         }
         
         
-        //System.out.println(fullArray); 
+        System.out.println(fullArray); 
         
         if(getCurrentTable() == parser.tableArray.size()-1) {
 			System.out.println("exporting...");
@@ -377,8 +414,7 @@ public class Controller {
 		return parser.tableArray.get(getCurrentTable()).size();
 	}
 	
-	public static String getRandomElement(List<String> list) {
-        Random random = new Random();
+	public static String getRandomElement(List<String> list) {  
         int index = random.nextInt(list.size());
         return list.get(index);
     }
