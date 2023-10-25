@@ -1,37 +1,13 @@
- ---------------------------------------------------------------
- --        Script Oracle.  
- ---------------------------------------------------------------
+------------------------------------------------------------
+-- Table: trajet
+------------------------------------------------------------
+CREATE TABLE trajet(
+	trajet_id  NUMBER NOT NULL ,
+	Date_t     DATE  NOT NULL  ,
+	driver_id  NUMBER(10,0)  NOT NULL  ,
+	truck_id   NUMBER(10,0)  NOT NULL  ,
+	CONSTRAINT trajet_PK PRIMARY KEY (trajet_id)
 
-
-------------------------------------------------------------
--- Table: City
-------------------------------------------------------------
-CREATE TABLE City(
-	city_id    NUMBER NOT NULL ,
-	city_name  VARCHAR2 (50) NOT NULL  ,
-	city_lat   FLOAT  NOT NULL  ,
-	city_long  FLOAT  NOT NULL  ,
-	CONSTRAINT City_PK PRIMARY KEY (city_id)
-);
-
-------------------------------------------------------------
--- Table: Driver
-------------------------------------------------------------
-CREATE TABLE Driver(
-	driver_id         NUMBER NOT NULL ,
-	driver_firstName  VARCHAR2 (50) NOT NULL  ,
-	driver_lastName   VARCHAR2 (50) NOT NULL  ,
-	driver_age        NUMBER(10,0)  NOT NULL  ,
-	driver_address    VARCHAR2 (100) NOT NULL  ,
-	CONSTRAINT Driver_PK PRIMARY KEY (driver_id)
-);
-
-------------------------------------------------------------
--- Table: Client
-------------------------------------------------------------
-CREATE TABLE Client(
-	client_id         NUMBER NOT NULL ,
-	client_firstName  VARCHAR2 (50) NOT NULL  ,
-	client_lastName   VARCHAR2 (50) NOT NULL  ,
-	CONSTRAINT Client_PK PRIMARY KEY (client_id)
+	,CONSTRAINT trajet_Driver_FK FOREIGN KEY (driver_id) REFERENCES Driver(driver_id)
+	,CONSTRAINT trajet_Truck0_FK FOREIGN KEY (truck_id) REFERENCES Truck(truck_id)
 );

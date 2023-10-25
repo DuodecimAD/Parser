@@ -103,9 +103,14 @@ public class Export {
 			            writer.write("VALUES (");
 
 			            for (int v = 0; v < controller.getFullArray().get(t).get(i).size(); v++) {
-			                writer.write("'");
-			                writer.write(controller.getFullArray().get(t).get(i).get(v));
-			                writer.write("'");
+			            	// Check if the column name contains "TO_DATE"
+			                if (controller.getFullArray().get(t).get(i).get(v).toUpperCase().contains("TO_DATE")) {
+			                    writer.write(controller.getFullArray().get(t).get(i).get(v));
+			                } else {
+			                    writer.write("'");
+			                    writer.write(controller.getFullArray().get(t).get(i).get(v));
+			                    writer.write("'");
+			                }
 
 			                if (v == controller.getFullArray().get(t).get(i).size() - 1) {
 			                } else {

@@ -107,7 +107,7 @@ public class Controller {
 		    "Palestine", "Grenada", "Mauritius", "Northern Mariana Islands", "Anguilla", "Germany", "Faroe Islands", "Virgin Islands", "Montserrat", "Singapore",
 		    "Afghanistan", "Argentina", "Benin", "Mongolia", "Mayotte", "Angola", "Andorra", "Burkina Faso", "Antigua and Barbuda", "Sierra Leone",
 		    "Réunion", "Finland", "Saint Helena, Ascension and Tristan da Cunha", "British Indian Ocean Territory", "Falkland Islands", "Cocos Islands", "Eritrea", "Uzbekistan", "Cameroon", "South Sudan",
-		    "Taiwan, Province of China", "Rwanda", "Burundi", "Korea", "India", "El Salvador", "Senegal", "Lao People's Democratic Republic", "Mexico", "Oman",
+		    "Taiwan, Province of China", "Rwanda", "Burundi", "Korea", "India", "El Salvador", "Senegal", "Lao Peoples Democratic Republic", "Mexico", "Oman",
 		    "Cyprus", "Bulgaria", "France", "Cayman Islands", "Marshall Islands", "Albania", "Libya", "Turkmenistan", "Suriname", "Ireland",
 		    "Poland", "Greenland", "Nicaragua", "Bahrain", "Nauru", "Israel", "Ukraine", "Bangladesh", "Romania", "Timor-Leste",
 		    "Malawi", "Kuwait", "Australia", "Guernsey", "Japan", "Greece", "Virgin Islands", "Denmark", "Mali", "Armenia",
@@ -284,9 +284,7 @@ public class Controller {
         fullArray.add(new ArrayList<>());
 
         
-        for (int a = 1; a <= lineNumbers; a++) {
-            numbers.add(a);
-        }
+        
         
         
         for (int i = 0; i < lineNumbers; i++) {
@@ -302,6 +300,10 @@ public class Controller {
 		            	fullArray.get(getCurrentTable()).get(i).add(Integer.toString(i+1)); 
 		            }
 		            case "Foreign Key" -> {
+		            	
+		            	for (int a = 1; a <= lineNumbers; a++) {
+		                    numbers.add(a);
+		                }
 
 						int randomIndex = random.nextInt(numbers.size());
 						int randomNumber = numbers.get(randomIndex);
@@ -360,7 +362,7 @@ public class Controller {
 		                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		                String formattedDate = dateFormat.format(randomDate);
 		                
-		                fullArray.get(getCurrentTable()).get(i).add("'" + formattedDate + "'");
+		                fullArray.get(getCurrentTable()).get(i).add("TO_DATE('"+formattedDate+"', 'YYYY-MM-DD HH24:MI:SS')");
 		            }
 		            default -> {
 		            	fullArray.get(getCurrentTable()).get(i).add("iDidNotSelectAnythingImBlind");
