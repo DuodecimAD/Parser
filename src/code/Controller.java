@@ -220,12 +220,23 @@ public class Controller {
 	    	champChoiceBoxes.add(new ChoiceBox<String>());
 
 	        champChoiceBoxes.get(i).setId("champ" + (i + 1) + "choice");
-	        champChoiceBoxes.get(i).getItems().addAll("Please pick", "Primary Key", "Foreign Key",
-	        											"First Names", "Last Names", "City Names", 
-	        											"Country Names", "Street Names", "Jobs",
-	        											 "Animal Names", "Numbers between 1-10",
-	        											 "Numbers between 1-100", "Numbers between 1-1000",
-	        											 "Numbers between 1-10000", "Dates");
+	        champChoiceBoxes.get(i).getItems().addAll(	"Please pick", 
+	        											"Primary Key", 
+	        											"Foreign Key", 
+	        											"First Names", 
+	        											"Last Names", 
+	        											"City Names", 
+	        											"Postal Codes",
+	        											"Country Names", 
+	        											"Street Names", 
+	        											"Jobs", 
+	        											"Animal Names", 
+	        											"Numbers between 1-10",
+	        											 "Numbers between 1-100", 
+	        											 "Numbers between 1-1000", 
+	        											 "Numbers between 1000-10000", 
+	        											 "Dates"
+	        											 );
 	        champChoiceBoxes.get(i).setValue("Please pick");
 	        champChoiceBoxes.get(i).setLayoutX(210.0);
 	        champChoiceBoxes.get(i).setLayoutY(13.0 + i * 40.0); 
@@ -240,7 +251,7 @@ public class Controller {
 			tablePanel.getChildren().addAll(champChoiceBoxes.get(i), champLabels.get(i));
 		}
 		
-		//Make the height of the program be the same of the total height of all children
+		//Makes the height of the program be the same of the total height of all children
 		Platform.runLater(() -> {
 			primaryStage.hide();
 			primaryStage.show();
@@ -260,13 +271,13 @@ public class Controller {
         int lineNumbers;
         try {
             lineNumbers = Integer.parseInt(lineChoice.getText());
-           //System.out.println("lineNumbers : " + lineNumbers);
+
         } catch (NumberFormatException e) {
-            // Parsing failed, handle the error here
+
             System.err.println("you didn't put any number of lines");
-            // You can provide a default value or show an error message to the user
-            lineNumbers = 0; // Default value, you can change this as needed
-            //Platform.exit();
+
+            lineNumbers = 0;
+
         }
         
         
@@ -291,9 +302,7 @@ public class Controller {
 		            	fullArray.get(getCurrentTable()).get(i).add(Integer.toString(i+1)); 
 		            }
 		            case "Foreign Key" -> {
-		            	
-		            	
-		            	
+
 						int randomIndex = random.nextInt(numbers.size());
 						int randomNumber = numbers.get(randomIndex);
 						
@@ -310,6 +319,9 @@ public class Controller {
 		            }
 		            case "City Names" -> {
 		            	fullArray.get(getCurrentTable()).get(i).add(getRandomElement(cityNames));
+		            }
+		            case "Postal Codes" -> {
+		            	fullArray.get(getCurrentTable()).get(i).add(Integer.toString(random.nextInt(800) + 200)+"0");
 		            }
 		            case "Country Names" -> {
 		            	fullArray.get(getCurrentTable()).get(i).add(getRandomElement(countryNames));
@@ -332,19 +344,19 @@ public class Controller {
 		            case "Numbers between 1-1000" -> {
 		            	fullArray.get(getCurrentTable()).get(i).add(Integer.toString(random.nextInt(1000) + 1));
 		            }
-		            case "Numbers between 1-10000" -> {
-		            	fullArray.get(getCurrentTable()).get(i).add(Integer.toString(random.nextInt(10000) + 1));
+		            case "Numbers between 1000-10000" -> {
+		            	fullArray.get(getCurrentTable()).get(i).add(Integer.toString(random.nextInt(100) + 10)+"00");
 		            }
 		            
 		            case "Dates" -> {
-		            	 // Generate a random date within a specific range (adjust the range as needed)
+
 		                long minDate = Timestamp.valueOf("2000-01-01 00:00:00").getTime();
 		                long maxDate = Timestamp.valueOf("2023-12-31 23:59:59").getTime();
 		                long randomTime = minDate + (long) (Math.random() * (maxDate - minDate));
 
 		                Date randomDate = new Date(randomTime);
 		                
-		                // Convert the SQL date to a formatted string, adjust the format as needed
+
 		                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		                String formattedDate = dateFormat.format(randomDate);
 		                
@@ -355,7 +367,7 @@ public class Controller {
 		            }
 	        	};
 	        	
-	            //fullArray.get(getCurrentTable()).get(i).add(selectedValue);
+
 	        }
         }
         
@@ -402,11 +414,9 @@ public class Controller {
 	}
 	
 	public void setTableName() {
-		// set title of the actual table
 		tableName.setText(parser.tableArray.get(getCurrentTable()).get(0));
 	}
 	public String getTableName() {
-		// set title of the actual table
 		return parser.tableArray.get(getCurrentTable()).get(0);
 	}
 	

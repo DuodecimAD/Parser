@@ -20,12 +20,10 @@ public class Parser {
 
 	public Parser() {
 			
-		
 		filePath = selectInput(filePath);
+		
 		parseSQLFile();
-		// location du fichier sql où on doit mettre
-		//String filePath = "src/input/input.sql";
- 
+
 	}
 	
 	public String selectInput(String filePath) {
@@ -33,7 +31,6 @@ public class Parser {
 		FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(new ExtensionFilter("select your .sql", "*.sql"));
         
-     // Set the initial directory to the program's current working directory
         fileChooser.setInitialDirectory(new File(System.getProperty("user.dir")+"/src/input/"));
 
         File selectedFile = fileChooser.showOpenDialog(primaryStage);
@@ -41,7 +38,7 @@ public class Parser {
         
         if (selectedFile != null) {
             filePath = selectedFile.getAbsolutePath();
-            // Do something with the file path, for example, display it
+
             System.out.println("Selected File: " + filePath);
         }
 		
