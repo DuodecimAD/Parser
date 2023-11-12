@@ -230,12 +230,14 @@ public class Controller {
 	        											"Country Names", 
 	        											"Street Names", 
 	        											"Jobs", 
-	        											"Animal Names", 
+	        											"Animal Names",
+	        											 "Dates",
+	        											 "Emails",
+	        											 "Phone Numbers",
 	        											"Numbers between 1-10",
 	        											 "Numbers between 1-100", 
 	        											 "Numbers between 1-1000", 
-	        											 "Numbers between 1000-10000", 
-	        											 "Dates"
+	        											 "Numbers between 1000-10000"
 	        											 );
 	        champChoiceBoxes.get(i).setValue("Please pick");
 	        champChoiceBoxes.get(i).setLayoutX(210.0);
@@ -284,7 +286,8 @@ public class Controller {
         fullArray.add(new ArrayList<>());
 
         
-        
+        String fn = null;
+        String ln = null;
         
         
         for (int i = 0; i < lineNumbers; i++) {
@@ -292,6 +295,7 @@ public class Controller {
 	        fullArray.get(getCurrentTable()).add(new ArrayList<>());      
 	        
 	        for (int j = 1; j < champChoiceBoxes.size(); j++) {
+
 	        	
 	        	String selectedValue = champChoiceBoxes.get(j).getValue();
 	        	
@@ -314,10 +318,12 @@ public class Controller {
 		                 
 		            }
 		            case "First Names" -> {
-		            	fullArray.get(getCurrentTable()).get(i).add(getRandomElement(firstNames));
+		            	fn = getRandomElement(firstNames);
+		            	fullArray.get(getCurrentTable()).get(i).add(fn);
 		            }
 		            case "Last Names" -> {
-		            	fullArray.get(getCurrentTable()).get(i).add(getRandomElement(lastNames));
+		            	ln = getRandomElement(lastNames);
+		            	fullArray.get(getCurrentTable()).get(i).add(ln);
 		            }
 		            case "City Names" -> {
 		            	fullArray.get(getCurrentTable()).get(i).add(getRandomElement(cityNames));
@@ -337,19 +343,6 @@ public class Controller {
 		            case "Jobs" -> {
 		            	fullArray.get(getCurrentTable()).get(i).add(getRandomElement(jobs));
 		            }
-		            case "Numbers between 1-10" -> {
-		            	fullArray.get(getCurrentTable()).get(i).add(Integer.toString(random.nextInt(10) + 1));
-		            }
-		            case "Numbers between 1-100" -> {
-		            	fullArray.get(getCurrentTable()).get(i).add(Integer.toString(random.nextInt(100) + 1));
-		            }
-		            case "Numbers between 1-1000" -> {
-		            	fullArray.get(getCurrentTable()).get(i).add(Integer.toString(random.nextInt(1000) + 1));
-		            }
-		            case "Numbers between 1000-10000" -> {
-		            	fullArray.get(getCurrentTable()).get(i).add(Integer.toString(random.nextInt(100) + 10)+"00");
-		            }
-		            
 		            case "Dates" -> {
 
 		                long minDate = Timestamp.valueOf("2000-01-01 00:00:00").getTime();
@@ -364,6 +357,33 @@ public class Controller {
 		                
 		                fullArray.get(getCurrentTable()).get(i).add("TO_DATE('"+formattedDate+"', 'YYYY-MM-DD HH24:MI:SS')");
 		            }
+		            case "Emails" -> {
+		            	if(fn != null && ln != null) {
+		            		fullArray.get(getCurrentTable()).get(i).add(fn+ln+"@gmail.com");
+		            		fn = null;
+		            		ln = null;
+		            	}else {
+		            		fullArray.get(getCurrentTable()).get(i).add(getRandomElement(animals).replace(" ", "")+Integer.toString(random.nextInt(1000) + 1)+"@gmail.com");
+		            	}
+		            	
+		            }
+		            case "Phone Numbers" -> {
+		            	fullArray.get(getCurrentTable()).get(i).add("0"+Integer.toString(random.nextInt(999999999) + 1));
+		            }
+		            case "Numbers between 1-10" -> {
+		            	fullArray.get(getCurrentTable()).get(i).add(Integer.toString(random.nextInt(10) + 1));
+		            }
+		            case "Numbers between 1-100" -> {
+		            	fullArray.get(getCurrentTable()).get(i).add(Integer.toString(random.nextInt(100) + 1));
+		            }
+		            case "Numbers between 1-1000" -> {
+		            	fullArray.get(getCurrentTable()).get(i).add(Integer.toString(random.nextInt(1000) + 1));
+		            }
+		            case "Numbers between 1000-10000" -> {
+		            	fullArray.get(getCurrentTable()).get(i).add(Integer.toString(random.nextInt(100) + 10)+"00");
+		            }
+		            
+		            
 		            default -> {
 		            	fullArray.get(getCurrentTable()).get(i).add("iDidNotSelectAnythingImBlind");
 		            }
